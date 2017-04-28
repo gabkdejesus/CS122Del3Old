@@ -1,0 +1,7 @@
+<h1>Add product</h1>
+<form action="{% url 'catalog:index' %}" method="post">
+	{% csrf_token %}
+	<input type="text" name="product_name">
+	<input type="text" name="product_price">
+	<input type="submit" value="Post">
+</form>
