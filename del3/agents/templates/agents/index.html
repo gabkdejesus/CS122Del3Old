@@ -1,4 +1,8 @@
+{% extends 'del3/base.html' %}
+
+{% block content %}
 <h1>Agent List</h1>
 {% for agent in agent_list %}
 <p>{{agent.agent_first_name}} {{agent.agent_last_name}}</p>
 {% endfor %}
+{% endblock %}

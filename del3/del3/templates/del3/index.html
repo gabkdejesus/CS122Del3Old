@@ -1,16 +1,5 @@
-<h1>Welcome to Pixie Dust Enterprises!</h1>
-{% if user.is_authenticated %}
-	<p>Logged in - {{request.user.username}}</p>
-	<a href="/logout">Logout</a>
-{% endif %}
-<h3>Links</h3>
-<ul>
-	<li><a href="/catalog">Catalog</a></li>
-	{% if not user.is_authenticated %}
-	<li><a href="/signup">Sign up</a></li>
-	<li><a href="/login">Login</a></li>
-	{% endif %}
-	<li><a href="/admin">Admin</a></li>
-	<li><a href="/agents">Agents</a></li>
-</ul>
+{% extends 'del3/base.html' %}
 
+{% block content %}
+<h1>Welcome to Pixie Dust Enterprises!</h1>
+{% endblock %}
