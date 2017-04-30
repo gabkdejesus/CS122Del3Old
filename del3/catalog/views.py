@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.admin.views.decorators import staff_member_required
 
 from .models import Product
 
@@ -21,12 +22,14 @@ def index(request):
 	product_list = Product.objects.all()
 	return render(request, 'catalog/index.html', {'product_list': product_list})
 
+@staff_member_required
 def add_product(request):
 	if request.user.is_staff:
 		return render(request, 'catalog/addproduct.html')
 	else:
 		return HttpResponseRedirect(reverse('catalog:index'))
 
+@staff_member_required
 def delete_product(request, product_id):
 	product = Product.objects.get(pk=product_id)
 	product.delete()
