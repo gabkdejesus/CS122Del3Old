@@ -1,11 +1,44 @@
-{% extends 'del3/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Catalog</title>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	{% extends 'del3/base.html' %}
 
-{% block content %}
-<h1>Product List</h1>
-{% for product in product_list %}
-<p>{{product.product_name}} - {{product.product_price}} {% if user.is_staff %}- <a href="{% url 'catalog:delete_product' product_id=product.pk %}">Delete</a>{% endif %}</p>
-{% endfor %}
-{% if user.is_staff %}
-<a href="/catalog/add">Add a product</a>
-{% endif %}
-{% endblock %}
+	{% block content %}
+	<h1>Product List</h1>
+	<table>
+		<tr>
+			{% for attrib in attribs %}
+			<th>{{attrib.name}}</th>
+			{% endfor %}
+			{% if user.is_staff %}
+				<th>Delete</th>
+			{% endif %}
+		</tr>
+		{% for product in product_list %}
+		<tr>
+			<td>{{product.product_no}}</td>
+			<td>{{product.product_name}}</td>
+			<td>{{product.color}}</td>
+			<td>{{product.quantity_stocked}}</td>
+			<td>{{product.personalization_limit}}</td>
+			<td>{{product.price}}</td>
+			{% if user.is_staff %}
+				<td><a href="{% url 'catalog:delete_product' product_no=product.pk %}">X</a></td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+
+		{% if user.is_staff %}
+		<a href='/catalog/add'>Add a product</a>
+		{% endif %}
+	{% endblock %}
+</body>
+</html>

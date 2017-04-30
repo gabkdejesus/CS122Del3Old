@@ -13,9 +13,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Agent',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('agent_first_name', models.CharField(verbose_name='First Name', max_length=200, default='John')),
-                ('agent_last_name', models.CharField(verbose_name='Last Name', max_length=200, default='Smith')),
+                ('agent_no', models.AutoField(primary_key=True, serialize=False)),
+                ('agent_first_name', models.CharField(max_length=255, blank=True, null=True)),
+                ('agent_last_name', models.CharField(max_length=255, blank=True, null=True)),
+                ('total_transactions', models.IntegerField(blank=True, null=True)),
             ],
+            options={
+                'db_table': 'agent',
+            },
         ),
     ]

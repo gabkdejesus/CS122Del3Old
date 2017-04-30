@@ -20,7 +20,8 @@ def index(request):
 		else:
 			return HttpResponse('Not allowed to add product')
 	product_list = Product.objects.all()
-	return render(request, 'catalog/index.html', {'product_list': product_list})
+	attribs = Product._meta.fields
+	return render(request, 'catalog/index.html', {'product_list': product_list, 'attribs': attribs})
 
 @staff_member_required
 def add_product(request):
@@ -30,7 +31,7 @@ def add_product(request):
 		return HttpResponseRedirect(reverse('catalog:index'))
 
 @staff_member_required
-def delete_product(request, product_id):
-	product = Product.objects.get(pk=product_id)
+def delete_product(request, product_no):
+	product = Product.objects.get(pk=product_no)
 	product.delete()
 	return HttpResponseRedirect(reverse('catalog:index'))

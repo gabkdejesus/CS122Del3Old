@@ -13,8 +13,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Product',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('product_name', models.CharField(verbose_name='Product Name', max_length=200)),
+                ('product_no', models.AutoField(primary_key=True, serialize=False)),
+                ('product_name', models.CharField(max_length=255, blank=True, null=True)),
+                ('color', models.CharField(max_length=255, blank=True, null=True)),
+                ('quantity_stocked', models.IntegerField(blank=True, null=True)),
+                ('personalization_limit', models.IntegerField(blank=True, null=True)),
+                ('price', models.FloatField(blank=True, null=True)),
             ],
+            options={
+                'db_table': 'product',
+            },
         ),
     ]
