@@ -39,6 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'catalog',
     'agents',
+    'del3',
+    'customers',
+    'orders',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,7 +53,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    # 'del3.auth_backends.CustomUserModelBackend'
 )
+
+# CUSTOM_USER_MODEL = 'del3.CustomUser'
 
 ROOT_URLCONF = 'del3.urls'
 

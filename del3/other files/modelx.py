@@ -17,7 +17,6 @@ class Agent(models.Model):
     agent_first_name = models.CharField(max_length=255, blank=True, null=True)
     agent_last_name = models.CharField(max_length=255, blank=True, null=True)
     total_transactions = models.IntegerField(blank=True, null=True)
-    customer_no = models.ForeignKey('Customer', db_column='customer_no', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -41,6 +40,7 @@ class Customer(models.Model):
     customer_no = models.AutoField(primary_key=True)
     customer_first_name = models.CharField(max_length=255, blank=True, null=True)
     customer_last_name = models.CharField(max_length=255, blank=True, null=True)
+    agent_no = models.ForeignKey(Agent, db_column='agent_no', blank=True, null=True)
 
     class Meta:
         managed = False

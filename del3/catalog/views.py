@@ -12,9 +12,17 @@ def index(request):
 		if request.user.is_staff: 
 			form = ProductForm(request.POST)
 			if form.is_valid():
-				product_name = form.cleaned_data.get('product_name')
-				product_price = form.cleaned_data.get('product_price')
-				product = Product(product_name=product_name, product_price=product_price)
+				name = form.cleaned_data.get('name')
+				color = form.cleaned_data.get('color')
+				quantity_stocked = form.cleaned_data.get('quantity_stocked')
+				personalization_limit = form.cleaned_data.get('personalization_limit')
+				price = form.cleaned_data.get('price')
+				product = Product()
+				product.name = name
+				product.color = color
+				product.quantity_stocked = quantity_stocked
+				product.personalization_limit = personalization_limit
+				product.price = price
 				product.save()
 				return HttpResponseRedirect(reverse('catalog:index'))
 		else:
@@ -26,12 +34,13 @@ def index(request):
 @staff_member_required
 def add_product(request):
 	if request.user.is_staff:
-		return render(request, 'catalog/addproduct.html')
+		form = ProductForm()
+		return render(request, 'catalog/addproduct.html', {'form': form})
 	else:
 		return HttpResponseRedirect(reverse('catalog:index'))
 
 @staff_member_required
-def delete_product(request, product_no):
-	product = Product.objects.get(pk=product_no)
+def delete_product(request, product_id):
+	product = Product.objects.get(pk=product_id)
 	product.delete()
 	return HttpResponseRedirect(reverse('catalog:index'))

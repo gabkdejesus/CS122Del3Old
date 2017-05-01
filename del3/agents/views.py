@@ -11,7 +11,7 @@ def index(request):
 	return render(request, 'agents/index.html', {'agent_list': agent_list, 'attribs': attribs})
 
 @staff_member_required
-def delete_agent(request, agent_no):
-	agent = Agent.objects.get(pk=agent_no)
+def delete_agent(request, agent_id):
+	agent = Agent.objects.get(pk=agent_id)
 	agent.delete()
-	return HttpResponseRedirect(reverse('agent:index'))
+	return HttpResponseRedirect(reverse('agents:index'))	

@@ -2,4 +2,7 @@
 
 {% block content %}
 <h1>Welcome to Pixie Dust Enterprises!</h1>
+{% for customer in customers %}
+<p>{{customer.user_id.first_name}} {{customer.user_id.last_name}} - {{customer.agent_id.first_name}}</p>
+{% endfor %}
 {% endblock %}

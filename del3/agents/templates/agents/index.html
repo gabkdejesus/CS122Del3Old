@@ -24,12 +24,12 @@
 		</tr>
 		{% for agent in agent_list %}
 		<tr>
-			<td>{{agent.agent_no}}</td>
-			<td>{{agent.agent_first_name}}</td>
-			<td>{{agent.agent_last_name}}</td>
+			<td>{{agent.agent_id}}</td>
+			<td>{{agent.first_name}}</td>
+			<td>{{agent.last_name}}</td>
 			<td>{{agent.total_transactions}}</td>
 			{% if user.is_staff %}
-				<td><a href="{% url 'agents:delete_agent' agent_no=agent.pk %}">X</a></td>
+				<td><a href="{% url 'agents:delete_agent' agent_id=agent.pk %}">X</a></td>
 			{% endif %}
 		</tr>
 		{% endfor %}

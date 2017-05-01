@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^login/', del3_views.login, name='login'),
     url(r'^logout/', del3_views.logout, name='logout'),
     url(r'^agents/', include('agents.urls', namespace='agents')),
+    url(r'^customers/', include('customers.urls', namespace='customers')),
+    url(r'^orders/', include('orders.urls', namespace='orders')),
 ]
