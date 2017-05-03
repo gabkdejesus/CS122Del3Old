@@ -7,12 +7,14 @@ from django.contrib.auth import login as auth_login, authenticate, logout as aut
 from django.contrib.auth.models import User
 
 from customers.models import Customer
+from agents.models import Agent
 
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm, LoginForm, SignUpAgentForm
 
 def index(request):
-	customers = Customer.objects.all()
-	return render(request, 'del3/index.html', {'customers': customers})
+	customer_list = Customer.objects.all()
+	agent_list = Agent.objects.all()
+	return render(request, 'del3/index.html', {'customer_list': customer_list, 'agent_list': agent_list})
 
 def signup(request):
 	if not request.user.is_authenticated():
@@ -30,7 +32,7 @@ def signup(request):
 				city = form.cleaned_data.get('city')
 				country = form.cleaned_data.get('country')
 				customer = Customer()
-				customer.user_id = user
+				customer.customer_id = user
 				customer.agent_id = agentid
 				customer.first_name = firstname
 				customer.last_name = lastname
@@ -38,11 +40,6 @@ def signup(request):
 				customer.city = city
 				customer.country = country
 				customer.save()
-				# auth_login(request, user)
-				# new_user = User.objects.create_user(username=username, password=password, email='', first_name='', last_name='')
-				# if email: new_user.email = email
-				# if firstname: new_user.first_name = firstname
-				# if lastname: new_user.last_name = lastname
 
 				auth_login(request, user)
 				return HttpResponseRedirect(reverse('catalog:index'))
@@ -51,6 +48,30 @@ def signup(request):
 		else:
 			form = SignUpForm()
 			return render(request, 'del3/signup.html', {'form': form})
+	else:
+		return HttpResponseRedirect(reverse('index'))
+
+def signup_agent(request):
+	if not request.user.is_authenticated():
+		if request.method == 'POST':
+			form = SignUpAgentForm(request.POST)
+			if form.is_valid():
+				username = form.cleaned_data.get('username')
+				password = form.cleaned_data.get('password1')
+				form.save()
+				user = authenticate(username=username, password=password)
+				agent = Agent()
+				agent.agent_id = user
+				agent.total_transaction = 0
+				agent.save()
+
+				auth_login(request, user)
+				return HttpResponseRedirect(reverse('catalog:index'))
+			else:
+				return render(request, 'del3/signupagent.html', {'form': form})
+		else:
+			form = SignUpAgentForm()
+			return render(request, 'del3/signupagent.html', {'form': form})
 	else:
 		return HttpResponseRedirect(reverse('index'))
 
@@ -80,4 +101,11 @@ def login(request):
 
 def logout(request):
 	auth_logout(request)
+	return HttpResponseRedirect(reverse('index'))
+
+def set_passwords(request):
+	users = User.objects.all()
+	for user in users:
+		user.set_password('test')
+		user.save()
 	return HttpResponseRedirect(reverse('index'))

@@ -17,6 +17,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^catalog/', include('catalog.urls', namespace='catalog')),
     url(r'^signup/', del3_views.signup, name='signup'),
+    url(r'^signupagent/', del3_views.signup_agent, name='signup_agent'),
+    url(r'^setpasswords/', del3_views.set_passwords, name='set_passwords'),
     url(r'^login/', del3_views.login, name='login'),
     url(r'^logout/', del3_views.logout, name='logout'),
     url(r'^agents/', include('agents.urls', namespace='agents')),

@@ -9,6 +9,9 @@ class Product(models.Model):
 	personalization_limit = models.IntegerField(blank=True, null=True)
 	price = models.FloatField(blank=True, null=True)
 
+	def __str__(self):
+		return str(self.product_id)
+
 	class Meta:
 		app_label = 'catalog'
 		db_table = 'product'
